@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -261,7 +261,7 @@ void main()
 	AcademyMember albert("Einstein", "Albert", 146, "Astronomy");
 	albert.info();
 
-	Student student("Щербаков", "Илья", 15, "Разработка программного обеспечения", "P_418", 100, 99.9);
+	Student student("Р©РµСЂР±Р°РєРѕРІ", "РР»СЊСЏ", 15, "Р Р°Р·СЂР°Р±РѕС‚РєР° РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ", "P_418", 100, 99.9);
 	student.info();
 
 	Teacher teacher("Einstein", "Albert", 146, "Atronomym", 120);
@@ -270,12 +270,12 @@ void main()
 
 	Human* group[] =
 	{
-		new Student("Кондратенко", "Георгий", 18, "РПО", "P_418", 97, 98),
+		new Student("РљРѕРЅРґСЂР°С‚РµРЅРєРѕ", "Р“РµРѕСЂРіРёР№", 18, "Р РџРћ", "P_418", 97, 98),
 		new Teacher("Stanne", "Michael", 55, "Vocals", 40),
-		new Student("Щербаков", "Илья", 15, "РПО", "P_418", 100, 99.9),
+		new Student("Р©РµСЂР±Р°РєРѕРІ", "РР»СЊСЏ", 15, "Р РџРћ", "P_418", 100, 99.9),
 		new Teacher("Henrisson", "Matrin", 50, "Bass", 40),
-		new Student("Тетевосян", "Элеонара", 17, "РПО", "P_418", 98, 48),
-		new Graduate("Пензин", "Богдан", 15, "РПО", "P_418", 98, 99, "Мнение и этическая позиция подростков на развитие искуственный интелекта (AGI - Artificial General Intellial gence)")
+		new Student("РўРµС‚РµРІРѕСЃСЏРЅ", "Р­Р»РµРѕРЅР°СЂР°", 17, "Р РџРћ", "P_418", 98, 48),
+		new Graduate("РџРµРЅР·РёРЅ", "Р‘РѕРіРґР°РЅ", 15, "Р РџРћ", "P_418", 98, 99, "РњРЅРµРЅРёРµ Рё СЌС‚РёС‡РµСЃРєР°СЏ РїРѕР·РёС†РёСЏ РїРѕРґСЂРѕСЃС‚РєРѕРІ РЅР° СЂР°Р·РІРёС‚РёРµ РёСЃРєСѓСЃС‚РІРµРЅРЅС‹Р№ РёРЅС‚РµР»РµРєС‚Р° (AGI - Artificial General Intellial gence)")
 	};
 
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
