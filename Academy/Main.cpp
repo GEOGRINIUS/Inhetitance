@@ -227,6 +227,7 @@ public:
 	{
 		cout << "GDestructor:\t" << this << endl;
 	}
+	//				Methods:
 	void info()const override
 	{
 		Student::info();
@@ -266,8 +267,8 @@ void main()
 
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
-		//group[i]->info();
-		cout << delimiter << endl;
-		cout << *dynamic_cast<AcademyMember*>(group[i]) << endl;
+		group[i]->info();
+		//cout << delimiter << endl;
+		cout << *group[i] << endl;
 	}
 }
