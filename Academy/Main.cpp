@@ -59,7 +59,15 @@ public:
 	}
 	virtual std::ostream& info(std::ostream& os)const
 	{
-		return os << last_name << " " << first_name << " " << age;
+		//return os << last_name << " " << first_name << " " << age;
+		os.width(12);
+		os << std::left;
+		os << last_name;
+		os.width(12);
+		os << first_name;
+		os.width(3);
+		os << age;
+		return os;
 	}
 };
 std::ostream& operator << (std::ostream& os, const Human& obj)
