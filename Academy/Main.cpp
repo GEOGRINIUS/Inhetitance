@@ -59,11 +59,11 @@ public:
 	}
 	virtual std::ostream& info(std::ostream& os)const
 	{
-		return os << last_name << " " << first_name << " " << age << endl;
+		return os << last_name << " " << first_name << " " << age;
 	}
 };
 std::ostream& operator << (std::ostream& os, const Human& obj)
-{
+{ 
 	return obj.info(os);
 	//obj.info();
 	//return os; << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age();
@@ -98,8 +98,9 @@ public:
 	//				Methods:
 	std::ostream& info(std::ostream& os)const override
 	{
-		Human::info(os);
-		return os << speciality << endl;
+		return Human::info(os) << " " << speciality;
+		//Human::info(os);
+		//return os << speciality << endl;
 	}
 };
 
@@ -160,8 +161,9 @@ public:
 	//			Methods:
 	std::ostream& info(std::ostream& os)const override
 	{
-		AcademyMember::info(os);
-		return os << group << " " << rating << " " << attendance << endl;
+		return AcademyMember::info(os) << " " << group << " " << rating << " " << attendance;
+		//AcademyMember::info(os);
+		//return os << group << " " << rating << " " << attendance << endl;
 	}
 };
 
@@ -196,8 +198,9 @@ public:
 	//				Methods:
 	std::ostream& info(std::ostream& os)const override
 	{
-		AcademyMember::info(os);
-		return os << experience << endl;
+		return AcademyMember::info(os) << " " << experience;
+		//AcademyMember::info(os);
+		//return os << experience << endl;
 	}
 
 };
@@ -233,8 +236,9 @@ public:
 	//				Methods:
 	std::ostream& info(std::ostream& os)const override
 	{
-		Student::info(os);
-		return os << subject << endl;
+		return Student::info(os) << " " << subject;
+		//Student::info(os);
+		//return os << subject << endl;
 	}
 	};
 
