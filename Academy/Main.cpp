@@ -1,3 +1,4 @@
+ï»¿#pragma warning (disable:4326)
 #include<iostream>
 using namespace std;
 using std::cin;
@@ -56,14 +57,16 @@ public:
 	{
 		cout << "HDestructor:\t" << this << endl;
 	}
-	virtual void info()const 
+	virtual std::ostream& info(std::ostream& os)const
 	{
-		cout << last_name << " " << first_name << " " << age << endl;
+		return os << last_name << " " << first_name << " " << age << endl;
 	}
 };
 std::ostream& operator << (std::ostream& os, const Human& obj)
 {
-	return os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age();
+	return obj.info(os);
+	//obj.info();
+	//return os; << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age();
 }
 
 class AcademyMember :public Human
@@ -93,10 +96,10 @@ public:
 		cout << "AMDonstructor:\t" << this << endl;
 	}
 	//				Methods:
-	void info()const override
+	std::ostream& info(std::ostream& os)const override
 	{
-		Human::info();
-		cout << speciality << endl;
+		Human::info(os);
+		return os << speciality << endl;
 	}
 };
 
@@ -155,10 +158,10 @@ public:
 	}
 
 	//			Methods:
-	void info()const override
+	std::ostream& info(std::ostream& os)const override
 	{
-		AcademyMember::info();
-		cout << group << " " << rating << " " << attendance << endl;
+		AcademyMember::info(os);
+		return os << group << " " << rating << " " << attendance << endl;
 	}
 };
 
@@ -191,10 +194,10 @@ public:
 	}
 
 	//				Methods:
-	void info()const override
+	std::ostream& info(std::ostream& os)const override
 	{
-		AcademyMember::info();
-		cout << experience << endl;
+		AcademyMember::info(os);
+		return os << experience << endl;
 	}
 
 };
@@ -228,10 +231,10 @@ public:
 		cout << "GDestructor:\t" << this << endl;
 	}
 	//				Methods:
-	void info()const override
+	std::ostream& info(std::ostream& os)const override
 	{
-		Student::info();
-		cout << subject << endl;
+		Student::info(os);
+		return os << subject << endl;
 	}
 	};
 
@@ -248,7 +251,7 @@ void main()
 	AcademyMember albert("Einstein", "Albert", 146, "Astronomy");
 	albert.info();
 
-	Student student("Ùåðáàêîâ", "Èëüÿ", 15, "Ðàçðàáîòêà ïðîãðàììíîãî îáåñïå÷åíèÿ", "P_418", 100, 99.9);
+	Student student("Ð©ÐµÑ€Ð±Ð°ÐºÐ¾Ð²", "Ð˜Ð»ÑŒÑ", 15, "Ð Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ð³Ð¾ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ñ", "P_418", 100, 99.9);
 	student.info();
 
 	Teacher teacher("Einstein", "Albert", 146, "Atronomym", 120);
@@ -257,17 +260,17 @@ void main()
 
 	Human* group[] =
 	{
-		new Student("Êîíäðàòåíêî", "Ãåîðãèé", 18, "ÐÏÎ", "P_418", 97, 98),
+		new Student("ÐšÐ¾Ð½Ð´Ñ€Ð°Ñ‚ÐµÐ½ÐºÐ¾", "Ð“ÐµÐ¾Ñ€Ð³Ð¸Ð¹", 18, "Ð ÐŸÐž", "P_418", 97, 98),
 		new Teacher("Stanne", "Michael", 55, "Vocals", 40),
-		new Student("Ùåðáàêîâ", "Èëüÿ", 15, "ÐÏÎ", "P_418", 100, 99.9),
+		new Student("Ð©ÐµÑ€Ð±Ð°ÐºÐ¾Ð²", "Ð˜Ð»ÑŒÑ", 15, "Ð ÐŸÐž", "P_418", 100, 99.9),
 		new Teacher("Henrisson", "Matrin", 50, "Bass", 40),
-		new Student("Òåòåâîñÿí", "Ýëåîíàðà", 17, "ÐÏÎ", "P_418", 98, 48),
-		new Graduate("Ïåíçèí", "Áîãäàí", 15, "ÐÏÎ", "P_418", 98, 99, "Ìíåíèå è ýòè÷åñêàÿ ïîçèöèÿ ïîäðîñòêîâ íà ðàçâèòèå èñêóñòâåííûé èíòåëåêòà (AGI - Artificial General Intellial gence)")
+		new Student("Ð¢ÐµÑ‚ÐµÐ²Ð¾ÑÑÐ½", "Ð­Ð»ÐµÐ¾Ð½Ð°Ñ€Ð°", 17, "Ð ÐŸÐž", "P_418", 98, 48),
+		new Graduate("ÐŸÐµÐ½Ð·Ð¸Ð½", "Ð‘Ð¾Ð³Ð´Ð°Ð½", 15, "Ð ÐŸÐž", "P_418", 98, 99, "ÐœÐ½ÐµÐ½Ð¸Ðµ Ð¸ ÑÑ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ Ð¿Ð¾Ð´Ñ€Ð¾ÑÑ‚ÐºÐ¾Ð² Ð½Ð° Ñ€Ð°Ð·Ð²Ð¸Ñ‚Ð¸Ðµ Ð¸ÑÐºÑƒÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹ Ð¸Ð½Ñ‚ÐµÐ»ÐµÐºÑ‚Ð° (AGI - Artificial General Intellial gence)")
 	};
 
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 	{
-		group[i]->info();
+		//group[i]->info();
 		//cout << delimiter << endl;
 		cout << *group[i] << endl;
 	}
