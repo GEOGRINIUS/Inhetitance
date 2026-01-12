@@ -1,4 +1,5 @@
 #pragma warning (disable:4326)
+#include<Windows.h>
 #include<iostream>
 using namespace std;
 using std::cin;
@@ -61,14 +62,29 @@ public:
 	}
 	void draw() const override
 	{
-		for (int i = 0; i < side; i++)
+		/*for (int i = 0; i < side; i++)
 		{
 			for (int i = 0; i < side; i++)
 			{
 				cout << "* ";
 			}
 			cout << endl;
-		}
+		}*/
+
+		HWND hwnd = GetConsoleWindow();
+		HDC hdc = GetDC(hwnd);
+
+		HPEN hPen = CreatePen(PS_SOLID, 5, Color::Red);
+		HBRUSH hBrush = CreateSolidBrush(Color::Red);
+
+		SelectObject(hdc, hPen);
+		SelectObject(hdc, hBrush);
+
+		Rectangle(hdc, 300, 300, 500, 500);
+
+		DeleteObject(hBrush);
+		DeleteObject(hPen);
+		ReleaseDC(hwnd, hdc);
 	}
 	void info() const override
 	{
