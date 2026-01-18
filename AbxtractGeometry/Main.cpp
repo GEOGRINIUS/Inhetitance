@@ -1,4 +1,4 @@
-#pragma warning (disable:4326)
+ï»¿#pragma warning (disable:4326)
 #include<Windows.h>
 #include<iostream>
 using namespace std;
@@ -94,8 +94,8 @@ public:
 	virtual void info()const
 	{
 		draw();
-		cout << "Ïëîùàäü ôèãóðû: " << get_area() << endl;
-		cout << "Ïåðèìåòð ôèãóðû: " << get_perimeter() << endl;
+		cout << "ÐŸÐ»Ð¾Ñ‰Ð°Ð´ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: " << get_area() << endl;
+		cout << "ÐŸÐµÑ€Ð¸Ð¼ÐµÑ‚Ñ€ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: " << get_perimeter() << endl;
 	}
 };
 
@@ -153,7 +153,7 @@ public:
 	void info() const override
 	{
 		cout << typeid(*this).name() << endl;
-		cout << "Äëèíà Ñòîðîíû: " << get_side() << endl;
+		cout << "Ð”Ð»Ð¸Ð½Ð° Ð¡Ñ‚Ð¾Ñ€Ð¾Ð½Ñ‹: " << get_side() << endl;
 		Shape::info();
 	}
 };
@@ -164,9 +164,9 @@ void main()
 
 	//Shape shape = Color::Red;
 	Square square(5000, 100, 400, 1, Color::White);
-	/*cout << "Ñòîðîíà êâàäðàòà: " << square.get_side() << endl;
-	cout << "Ïëîùàäü ôèãóðû: " << square.get_area() << endl;
-	cout << "Ïåðèìåòð ôèãóðû: " << square.get_perimeter() << endl;
+	/*cout << "Ð¡Ñ‚Ð¾Ñ€Ð¾Ð½Ð° ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð°: " << square.get_side() << endl;
+	cout << "ÐŸÐ»Ð¾Ñ‰Ð°Ð´ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: " << square.get_area() << endl;
+	cout << "ÐŸÐµÑ€Ð¸Ð¼ÐµÑ‚Ñ€ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: " << square.get_perimeter() << endl;
 	square.draw();*/
 	square.info();
 
