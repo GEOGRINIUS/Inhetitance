@@ -276,6 +276,11 @@ namespace  Geometry
 		Triangle(SHAPE_TAKE_PARAMETERS) :Shape(SHAPE_GIVE_PARAMETERS) {}
 		~Triangle() {};
 		virtual double get_height()const = 0;
+		void info()const override
+		{
+			cout << "Высота треугольника: " << get_height() << "  ";
+			Shape::info();
+		}
 	};
 	class EguilateralTriangle : public Triangle
 	{
@@ -389,6 +394,71 @@ namespace  Geometry
 			ReleaseDC(hwnd, hdc);
 		}
 	};
+	class RightTriangle :public Triangle
+	{
+		double cathet_1;
+		double cathet_2;
+	public:
+		double get_cathet_1()const
+		{
+			return cathet_1;
+		}
+		double get_cathet_2()const
+		{
+			return cathet_2;
+		}
+		double get_hypotenuse()const
+		{
+			return sqrt(cathet_1 * cathet_2 + cathet_2 * cathet_2);
+		}
+		void set_cathet_1(double cathet_1)
+		{
+			this->cathet_1 = filter_size(cathet_1);
+		}
+		void set_cathet_2(double cathet_2)
+		{
+			this->cathet_2 = filter_size(cathet_2);
+		}
+		RightTriangle(double cathet_1, double cathet_2, SHAPE_TAKE_PARAMETERS) :Triangle(SHAPE_GIVE_PARAMETERS)
+		{
+			set_cathet_1(cathet_1);
+			set_cathet_2(cathet_2);
+		}
+		~RightTriangle() {}
+		double get_height() const override
+		{
+			return cathet_1 * cathet_2 / get_hypotenuse();
+		}
+		double get_area()const override
+		{
+			return cathet_1 * cathet_2 / 2;
+		}
+		double get_perimeter()const override
+		{
+			return cathet_1 + cathet_2 + get_hypotenuse();
+		}
+		void draw()const override
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+
+			POINT vertices[] =
+			{
+				{start_x, start_y},
+				{start_x, start_y + cathet_2},
+				{start_x + cathet_1, start_y + cathet_2},
+			};
+			Polygon(hdc, vertices, 3);
+
+			DeleteObject(hBrush);
+			DeleteObject(hPen);
+			ReleaseDC(hwnd, hdc);
+		}
+	};
 }
 
 void main()
@@ -396,12 +466,12 @@ void main()
 	setlocale(LC_ALL, "");
 
 	//Shape shape = Color::Red;
-	Geometry::Square square(5000, -300, -300, 1, Geometry::Color::White);
+	Geometry::Square square(5000, -300, -300, 1, Geometry::Color::Black);
+	square.info();
 	/*cout << "Сторона квадрата: " << square.get_side() << endl;
 	cout << "Площадь фигуры: " << square.get_area() << endl;
 	cout << "Периметр фигуры: " << square.get_perimeter() << endl;
 	square.draw();*/
-	square.info();
 
 	Geometry::Rectangle rect(200, 100, 500, 300, 5, Geometry::Color::Red);
 	rect.info();
@@ -414,4 +484,7 @@ void main()
 
 	Geometry::IsoscelesTriangle iso_triangle(100, 180, 700, 400, 32, Geometry::Color::Purple);
 	iso_triangle.draw();
+
+	Geometry::RightTriangle r_triangle(100, 50, 800, 400, 5, Geometry::Color::Blue);
+	r_triangle.info();
 }
