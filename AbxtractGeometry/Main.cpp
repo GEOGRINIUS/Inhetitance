@@ -20,7 +20,8 @@ namespace  Geometry
 		Yellow = 0x0000FFFF,
 		Purple = 0x00800080,
 		White = 0x00FFFFFF,
-		Black = 0x00000000
+		Black = 0x00000000,
+		Orange = 0x00005AFF
 	};
 
 #define tab "\t"
@@ -501,14 +502,14 @@ void main()
 	setlocale(LC_ALL, "");
 
 	//Shape shape = Color::Red;
-	Geometry::Square square(150, 100, 100, 5, Geometry::Color::White);
+	Geometry::Square square(150, 100, 100, 5, Geometry::Color::Purple, Geometry::Color::Yellow);
 	square.info();
 	/*cout << "Сторона квадрата: " << square.get_side() << endl;
 	cout << "Площадь фигуры: " << square.get_area() << endl;
 	cout << "Периметр фигуры: " << square.get_perimeter() << endl;
 	square.draw();*/
 
-	Geometry::Rectangle rect(200, 100, 450, 100, 5, Geometry::Color::Red);
+	Geometry::Rectangle rect(200, 100, 450, 100, 5, Geometry::Color::Red, Geometry::Color::Green);
 	rect.info();
 
 	Geometry::Circle circle(150, 700, 300, 5, Geometry::Color::Yellow, Geometry::Color::Purple);
@@ -517,10 +518,10 @@ void main()
 	Geometry::EguilateralTriangle e_triangle(180, 100, 300, 11, Geometry::Color::Green, Geometry::Color::Red);
 	e_triangle.info();
 
-	Geometry::IsoscelesTriangle iso_triangle(100, 180, 350, 400, 11, Geometry::Color::Purple);
+	Geometry::IsoscelesTriangle iso_triangle(100, 180, 350, 400, 11, Geometry::Color::Orange, Geometry::Color::Blue);
 	iso_triangle.draw();
 
-	Geometry::RightTriangle r_triangle(150, 77, 800, 200, 5, Geometry::Color::Blue);
+	Geometry::RightTriangle r_triangle(150, 77, 800, 200, 5, Geometry::Color::Blue, Geometry::Color::Orange);
 	r_triangle.info();
 
 	while (true)
