@@ -7,6 +7,9 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+//#define SQUARE_FULL
+//#define EQUILATERAL_FULL
+
 namespace  Geometry
 {
 	enum Color
@@ -117,7 +120,8 @@ namespace  Geometry
 			cout << "Периметр фигуры: " << get_perimeter() << endl;
 		}
 	};
-
+	
+#ifdef SQUARE_FULL
 	class Square :public Shape
 	{
 		double side;
@@ -178,6 +182,7 @@ namespace  Geometry
 			Shape::info();
 		}
 	};
+#endif //SQUARE_FULL
 
 	class Rectangle :public Shape
 	{
@@ -233,6 +238,13 @@ namespace  Geometry
 			ReleaseDC(hwnd, hdc);
 		}
 	};
+	class Square :public Rectangle
+	{
+	public:
+		Square(double side, SHAPE_TAKE_PARAMETERS) :Rectangle(side, side, SHAPE_GIVE_PARAMETERS) {}
+		~Square() {};
+	};
+
 	class Circle :public Shape
 	{
 		double radius;
@@ -289,6 +301,8 @@ namespace  Geometry
 			Shape::info();
 		}
 	};
+
+#ifdef EQUILATERAL_FULL
 	class EguilateralTriangle : public Triangle
 	{
 		double side;
@@ -343,6 +357,8 @@ namespace  Geometry
 			ReleaseDC(hwnd, hdc);
 		}
 	};
+#endif // EQUILATERAL_FULL
+
 	class IsoscelesTriangle :public Triangle
 	{
 		double base;
@@ -406,6 +422,12 @@ namespace  Geometry
 			ReleaseDC(hwnd, hdc);
 		}
 	};
+	class EguilateralTriangle :public IsoscelesTriangle
+	{
+	public:
+		EguilateralTriangle(double side, SHAPE_TAKE_PARAMETERS) :IsoscelesTriangle(side, side, SHAPE_GIVE_PARAMETERS) {}
+		~EguilateralTriangle() {}
+	};
 	class RightTriangle :public Triangle
 	{
 		double cathet_1;
@@ -465,8 +487,7 @@ namespace  Geometry
 				{start_x + cathet_1, start_y + cathet_2},
 			};
 			Polygon(hdc, vertices, 3);
-			MoveToEx(hdc, start_x + cathet_1 / 2, start_y + cathet_2, NULL);
-			LineTo(hdc, start_x + cathet_1 / 2, start_y + get_height());
+
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -480,7 +501,7 @@ void main()
 	setlocale(LC_ALL, "");
 
 	//Shape shape = Color::Red;
-	Geometry::Square square(150, 100, 100, 1, Geometry::Color::White);
+	Geometry::Square square(150, 100, 100, 5, Geometry::Color::White);
 	square.info();
 	/*cout << "Сторона квадрата: " << square.get_side() << endl;
 	cout << "Площадь фигуры: " << square.get_area() << endl;
@@ -490,10 +511,10 @@ void main()
 	Geometry::Rectangle rect(200, 100, 450, 100, 5, Geometry::Color::Red);
 	rect.info();
 
-	Geometry::Circle circle(150, 700, 300, 5, Geometry::Color::Yellow);
+	Geometry::Circle circle(150, 700, 300, 5, Geometry::Color::Yellow, Geometry::Color::Purple);
 	circle.info();
 
-	Geometry::EguilateralTriangle e_triangle(180, 100, 300, 11, Geometry::Color::Green);
+	Geometry::EguilateralTriangle e_triangle(180, 100, 300, 11, Geometry::Color::Green, Geometry::Color::Red);
 	e_triangle.info();
 
 	Geometry::IsoscelesTriangle iso_triangle(100, 180, 350, 400, 11, Geometry::Color::Purple);
