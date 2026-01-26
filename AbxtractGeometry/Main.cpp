@@ -22,8 +22,8 @@ namespace  Geometry
 
 #define tab "\t"
 #define delimiter "\n----------------------------------------------------------------------\n"
-#define SHAPE_TAKE_PARAMETERS int start_x, int start_y, int line_width, Color color
-#define SHAPE_GIVE_PARAMETERS start_x, start_y, line_width, color
+#define SHAPE_TAKE_PARAMETERS int start_x, int start_y, int line_width, Color color, Color fill_color = Color::Black
+#define SHAPE_GIVE_PARAMETERS start_x, start_y, line_width, color, fill_color
 
 	class Shape
 	{
@@ -37,7 +37,8 @@ namespace  Geometry
 		static const int MAX_SIZE = 500;
 
 	protected:
-		Color color;
+		Color color;	 //Цвет  фигуры
+		Color fill_color;//Цвет заливки
 		int start_x;
 		int start_y;
 		int line_width;
@@ -99,7 +100,7 @@ namespace  Geometry
 				size > MAX_SIZE ? MAX_SIZE :
 				size;
 		}
-		Shape(SHAPE_TAKE_PARAMETERS) :color(color)
+		Shape(SHAPE_TAKE_PARAMETERS) :color(color), fill_color(fill_color)
 		{
 			set_start_x(start_x);
 			set_start_y(start_y);
@@ -157,12 +158,14 @@ namespace  Geometry
 			HDC hdc = GetDC(hwnd);
 
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			HBRUSH hBrush = CreateSolidBrush(color);
+			HBRUSH hBrush = CreateSolidBrush(fill_color);
 
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
 			::Rectangle(hdc, start_x, start_y, start_x + side, start_y + side);
+			::MoveToEx(hdc, start_x, start_y, NULL);
+			::LineTo(hdc, start_x + side, start_y + side);
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -217,11 +220,13 @@ namespace  Geometry
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			HBRUSH hBrush = CreateSolidBrush(color);
+			HBRUSH hBrush = CreateSolidBrush(fill_color);
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
 			::Rectangle(hdc, start_x, start_y, start_x + width, start_y + height);
+			::MoveToEx(hdc, start_x, start_y, NULL);
+			::LineTo(hdc, start_x + width, start_y + height);
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -259,12 +264,14 @@ namespace  Geometry
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			HBRUSH hBrush = CreateSolidBrush(color);
+			HBRUSH hBrush = CreateSolidBrush(fill_color);
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
 			Ellipse(hdc, start_x, start_y, start_x + 2 * radius, start_y + 2 * radius);
-
+			MoveToEx(hdc, start_x + radius, start_y + radius, NULL);
+			LineTo(hdc, start_x + radius * 2, start_y + radius);
+			
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
 			ReleaseDC(hwnd, hdc);
@@ -316,17 +323,20 @@ namespace  Geometry
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			HBRUSH hBrush = CreateSolidBrush(color);
+			HBRUSH hBrush = CreateSolidBrush(fill_color);
 			SelectObject(hdc, hPen);
+			//SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
 			POINT vertices[] =
 			{
-				{start_x + side / 2,start_y},
+				{start_x + (int)side / 2,start_y},
 				{start_x + side,start_y + get_height()},
 				{start_x,start_y + get_height()},
 			};
 			Polygon(hdc, vertices, 3);
+			MoveToEx(hdc, start_x + side / 2, start_y, NULL);
+			LineTo(hdc, start_x + side / 2, start_y + get_height());
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -377,7 +387,7 @@ namespace  Geometry
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			HBRUSH hBrush = CreateSolidBrush(color);
+			HBRUSH hBrush = CreateSolidBrush(fill_color);
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
@@ -388,6 +398,8 @@ namespace  Geometry
 				{start_x, start_y + get_height()},
 			};
 			Polygon(hdc, vertices, 3);
+			MoveToEx(hdc, start_x + base / 2, start_y, NULL);
+			LineTo(hdc, start_x + base / 2, start_y + get_height());
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -442,7 +454,7 @@ namespace  Geometry
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
 			HPEN hPen = CreatePen(PS_SOLID, line_width, color);
-			HBRUSH hBrush = CreateSolidBrush(color);
+			HBRUSH hBrush = CreateSolidBrush(fill_color);
 			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
 
@@ -453,6 +465,8 @@ namespace  Geometry
 				{start_x + cathet_1, start_y + cathet_2},
 			};
 			Polygon(hdc, vertices, 3);
+			MoveToEx(hdc, start_x + cathet_1 / 2, start_y + cathet_2, NULL);
+			LineTo(hdc, start_x + cathet_1 / 2, start_y + get_height());
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -466,25 +480,35 @@ void main()
 	setlocale(LC_ALL, "");
 
 	//Shape shape = Color::Red;
-	Geometry::Square square(5000, -300, -300, 1, Geometry::Color::Black);
+	Geometry::Square square(150, 100, 100, 1, Geometry::Color::White);
 	square.info();
 	/*cout << "Сторона квадрата: " << square.get_side() << endl;
 	cout << "Площадь фигуры: " << square.get_area() << endl;
 	cout << "Периметр фигуры: " << square.get_perimeter() << endl;
 	square.draw();*/
 
-	Geometry::Rectangle rect(200, 100, 500, 300, 5, Geometry::Color::Red);
+	Geometry::Rectangle rect(200, 100, 450, 100, 5, Geometry::Color::Red);
 	rect.info();
 
 	Geometry::Circle circle(150, 700, 300, 5, Geometry::Color::Yellow);
 	circle.info();
 
-	Geometry::EguilateralTriangle e_triangle(80, 500, 500, 32, Geometry::Color::Green);
+	Geometry::EguilateralTriangle e_triangle(180, 100, 300, 11, Geometry::Color::Green);
 	e_triangle.info();
 
-	Geometry::IsoscelesTriangle iso_triangle(100, 180, 700, 400, 32, Geometry::Color::Purple);
+	Geometry::IsoscelesTriangle iso_triangle(100, 180, 350, 400, 11, Geometry::Color::Purple);
 	iso_triangle.draw();
 
-	Geometry::RightTriangle r_triangle(100, 50, 800, 400, 5, Geometry::Color::Blue);
+	Geometry::RightTriangle r_triangle(150, 77, 800, 200, 5, Geometry::Color::Blue);
 	r_triangle.info();
+
+	while (true)
+	{
+		square.draw();
+		rect.draw();
+		circle.draw();
+		iso_triangle.draw();
+		r_triangle.draw();
+		e_triangle.draw();
+	}
 }
