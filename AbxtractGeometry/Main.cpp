@@ -283,6 +283,8 @@ namespace  Geometry
 
 			Ellipse(hdc, start_x, start_y, start_x + 2 * radius, start_y + 2 * radius);
 			MoveToEx(hdc, start_x + radius, start_y + radius, NULL);
+			LineTo(hdc, (start_x + radius*2) , (start_y + radius));
+			MoveToEx(hdc, start_x + radius, start_y + radius, NULL);
 			int degree = 30;
 			double angle = -degree * M_PI / 180;
 			LineTo(hdc, (start_x + radius) + radius * cos(angle) , (start_y + radius) + radius * sin(angle));
@@ -491,6 +493,23 @@ namespace  Geometry
 			};
 			Polygon(hdc, vertices, 3);
 
+			MoveToEx(hdc, start_x, start_y + cathet_2, NULL);
+			RightTriangle tri_1(cathet_1 * cathet_1 / get_hypotenuse(), get_height(), 0, 0, 0, Color::Black);
+			RightTriangle tri_2(get_height(), cathet_2 * cathet_2 / get_hypotenuse(), 0, 0, 0, Color::Black);
+			/*RightTriangle tri_22(tri_2.get_height(), tri_2.cathet_2 * tri_2.cathet_2 / tri_2.get_hypotenuse(), 0, 0, 0, Color::Black);
+			LineTo(hdc, start_x + tri_2.get_height(), start_y + tri_22.cathet_2);*/
+			double main_height = get_height();
+			double target_x = start_x + tri_2.get_height();
+			double target_y = start_y + cathet_2 - tri_1.get_height();
+			LineTo(hdc, target_x, target_y);
+
+			/*MoveToEx(hdc, start_x, start_y + cathet_2, NULL);
+			double cat2_oposite_angle = asin(cathet_2 / get_hypotenuse()) / M_PI * 180;
+			double height_right_angle = 180 - 90 - cat2_oposite_angle;
+			double height = get_height();
+			double target_x = get_height() * sin(height_right_angle * M_PI / 180);
+			double target_y = get_height() * cos(height_right_angle * M_PI / 180);
+			LineTo(hdc, start_x + target_x, start_y + target_y);*/
 
 			DeleteObject(hBrush);
 			DeleteObject(hPen);
@@ -523,7 +542,7 @@ void main()
 	Geometry::IsoscelesTriangle iso_triangle(100, 180, 350, 400, 11, Geometry::Color::Orange, Geometry::Color::Blue);
 	iso_triangle.draw();
 
-	Geometry::RightTriangle r_triangle(150, 77, 800, 200, 5, Geometry::Color::Blue, Geometry::Color::Orange);
+	Geometry::RightTriangle r_triangle(80, 150, 800, 100, 5, Geometry::Color::Blue, Geometry::Color::Orange);
 	r_triangle.info();
 
 	while (true)
